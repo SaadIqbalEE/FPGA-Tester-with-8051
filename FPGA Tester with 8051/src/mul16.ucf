@@ -1,0 +1,28 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "bus_in[0]" LOC = H33;
+NET "bus_in[1]" LOC = F34;
+NET "bus_in[2]" LOC = H34;
+NET "bus_in[3]" LOC = G33;
+NET "bus_in[4]" LOC = G32;
+NET "bus_in[5]" LOC = H32;
+NET "bus_in[6]" LOC = J32;
+NET "bus_in[7]" LOC = J34;
+
+NET "bus_out[0]" LOC = L33;
+NET "bus_out[1]" LOC = M32;
+NET "bus_out[2]" LOC = P34;
+NET "bus_out[3]" LOC = N34;
+NET "bus_out[4]" LOC = AA34;
+NET "bus_out[5]" LOC = AD32;
+NET "bus_out[6]" LOC = Y34;
+NET "bus_out[7]" LOC = Y32;
+
+NET "clk" LOC = AH15;
+NET "i_enable" LOC = AH32;
+NET "i_sel[0]" LOC = W32;
+NET "i_sel[1]" LOC = AH34;
+NET "o_enable" LOC = AK34;
+NET "o_sel[0]" LOC = AE32;
+NET "o_sel[1]" LOC = AG32;

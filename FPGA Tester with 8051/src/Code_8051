@@ -1,0 +1,118 @@
+#include<reg51.h> //Header file of generic 80C51
+sbit A1=P1^0;
+sbit A2=P1^1;
+sbit A3=P1^2;
+sbit A4=P1^3;
+sbit A5=P1^4;
+sbit A6=P1^5;
+sbit A7=P1^6;
+sbit A8=P1^7;
+
+sbit O1=P2^0;
+sbit O2=P2^1;
+sbit O3=P2^2;
+sbit O4=P2^3;
+sbit O5=P2^4;
+sbit O6=P2^5;
+sbit O7=P2^6;
+sbit O8=P2^7;
+
+sbit incorrect=P3^0;
+sbit correct=P3^1;
+sbit i_enable=P3^2;
+sbit o_enable=P3^3;
+sbit sel_i1=P3^4;
+sbit sel_i2=P3^5;
+sbit sel_o1=P3^6;
+sbit sel_o2=P3^7;
+
+sbit waitting=P0^0;
+sbit clk_01=P0^1;
+
+void Delay_msec(unsigned int); //Delay Function declaration using onboard timer
+void main() // Start of program
+{
+unsigned char A1, B1, C1, D1;
+TMOD=0x10; //Setting mode: timer,software based, 16 bit register
+Delay_msec(100); //calling delay function
+while(1) // infinite loop
+{
+	o_enable=1;
+	sel_i1=0;
+	sel_i2=0;
+	P1=0x00;
+	clk_01=1;
+	clk_01=0;
+	Delay_msec(100); //calling delay function
+	sel_i1=1;
+	sel_i2=0;
+	P1=0x03;
+	clk_01=1;
+	clk_01=0;
+	Delay_msec(100); //calling delay function
+	sel_i1=1;
+	sel_i2=1;
+	P1=0x04;
+	clk_01=1;
+	clk_01=0;
+	Delay_msec(100); //calling delay function
+	sel_i1=0;
+	sel_i2=1;
+	P1=0x00;
+	clk_01=1;
+	clk_01=0;
+	Delay_msec(100); //calling delay function
+	o_enable=0;
+	
+	Delay_msec(1000); //calling delay function
+	
+	i_enable=1;
+	sel_o1=0;
+	sel_o2=0;
+	A1=P2;
+	Delay_msec(100); //calling delay function
+	sel_o1=1;
+	sel_o2=0;
+	B1=P2;
+	Delay_msec(100); //calling delay function
+	sel_o1=1;
+	sel_o2=1;
+	C1=P2;
+	Delay_msec(100); //calling delay function
+	sel_o1=0;
+	sel_o2=1;
+	D1=P2;
+	Delay_msec(100); //calling delay function
+	o_enable=0;
+	waitting=0;
+	if (A1==0x00 & B1==0x00 & C1==0x0C & D1==0x00){
+		correct=1;
+		incorrect=0;
+	}
+	else{
+		correct=0;
+		incorrect=1;
+	}
+	Delay_msec(1000); //calling delay function
+	waitting = 1;
+}
+}
+
+void Delay_msec(unsigned int num_msec) //Delay function with input in milliseconds
+{
+int i;
+TH1=0x00;
+TL1=0x00; //Clear the timer 1 register
+TR1=0x40; //Start timer
+/*
+Timer register is 16 bit
+Clock speed =occilator speed/12
+Occilator Speed is 11.5 MHz
+Timer register overflow in 71 milliseconds
+*/
+for(i=0; i<num_msec/71;i++){ //Set delay
+TF1=0; //Clear overflow flag
+while(TF1==0){ //while overflow flag is clear
+}
+}
+}
